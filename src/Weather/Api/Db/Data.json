@@ -1,0 +1,11 @@
+[
+  {"date": "2018-04-04", "dayTemp": 15, "nightTemp": 3, "sky": 1},
+  {"date": "2018-04-05", "dayTemp": 17, "nightTemp": 5, "sky": 2},
+  {"date": "2018-04-06", "dayTemp": 5, "nightTemp": -3, "sky": 1},
+  {"date": "2018-04-07", "dayTemp": 8, "nightTemp": -2, "sky": 3},
+  {"date": "2018-04-08", "dayTemp": 12, "nightTemp": 0, "sky": 1},
+  {"date": "2018-04-09", "dayTemp": 15, "nightTemp": 6, "sky": 2},
+  {"date": "2018-04-10", "dayTemp": 17, "nightTemp": 4, "sky": 2},
+  {"date": "2018-04-11", "dayTemp": 20, "nightTemp": 11, "sky": 1}
+]
+
