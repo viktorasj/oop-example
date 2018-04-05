@@ -4,11 +4,11 @@ require __DIR__ . '/vendor/autoload.php';
 
 
 $controller = new \Weather\Controller\StartPage();
-$weather = $controller->getTodayWeather();
+$weathers = $controller->getTodayWeather();
 
 echo '<p>Weather</p>';
 
-foreach ($weather as $item) {
+foreach ($weathers as $item) {
     echo sprintf(
         '<ul>
                 <li>Day <b>%s</b></li>

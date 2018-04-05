@@ -15,7 +15,7 @@ class StartPage
     public function getTodayWeather(): array
     {
         try {
-            $fromGoogle = new GoogleApi();
+            $fromGoogle = new DbRepository();
             $weather = $fromGoogle->getToday();
         } catch (\Exception $exp) {
             $weather = new NullWeather();

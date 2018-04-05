@@ -13,7 +13,7 @@ class GoogleApi
      */
     public function getToday()
     {
-        $today = $this->generateWheater(new NullWeather());
+        $today = $this->load(new NullWeather());
         $today->setDate(new \DateTime());
 
         return $today;
@@ -24,7 +24,7 @@ class GoogleApi
      * @return Weather
      * @throws \Exception
      */
-    private function generateWheater(Weather $before)
+    private function load(Weather $before)
     {
         $now = new Weather();
         $base = $before->getDayTemp();
