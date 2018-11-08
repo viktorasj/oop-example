@@ -2,25 +2,32 @@
 
 namespace Weather\Controller;
 
-use Weather\Api\DbRepository;
-use Weather\Api\GoogleApi;
+use Weather\Manager;
 use Weather\Model\NullWeather;
-use Weather\Model\Weather;
 
 class StartPage
 {
-    /**
-     * @return Weather[]
-     */
     public function getTodayWeather(): array
     {
         try {
-            $fromGoogle = new DbRepository();
-            $weather = $fromGoogle->getToday();
+            $service = new Manager;
+            $weather = $service->getTodayInfo();
         } catch (\Exception $exp) {
             $weather = new NullWeather();
         }
 
-        return [$weather];
+        return ['template' => 'today-weather.twig', 'context' => ['weather' => $weather]];
+    }
+
+    public function getWeekWeather(): array
+    {
+        try {
+            $service = new Manager;
+            $weathers = $service->getWeekInfo();
+        } catch (\Exception $exp) {
+            $weathers = [];
+        }
+
+        return ['template' => 'range-weather.twig', 'context' => ['weathers' => $weathers]];
     }
 }

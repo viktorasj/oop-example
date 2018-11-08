@@ -4,9 +4,11 @@ namespace Weather\Model;
 
 class Weather
 {
-    const SUNNY = 1;
-    const CLOUDY = 2;
-    const RAINING = 3;
+    private $map = [
+        1 => 'cloud',
+        2 => 'cloud-rain',
+        3 => 'sun'
+    ];
 
     /**
      * @var integer
@@ -90,5 +92,10 @@ class Weather
     public function setDate(\DateTime $date): void
     {
         $this->date = $date;
+    }
+
+    public function getSkySymbol()
+    {
+        return $this->map[$this->sky];
     }
 }

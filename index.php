@@ -2,20 +2,32 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+
+$request = Request::createFromGlobals();
+
+$loader = new Twig_Loader_Filesystem('View', __DIR__ . '/src/Weather');
+$twig = new Twig_Environment($loader, ['cache' => __DIR__ . '/cache', 'debug' => true]);
 
 $controller = new \Weather\Controller\StartPage();
-$weathers = $controller->getTodayWeather();
-
-echo '<p>Weather</p>';
-
-foreach ($weathers as $item) {
-    echo sprintf(
-        '<ul>
-                <li>Day <b>%s</b></li>
-                <li>Day temp: <b>%d</b></li>
-                <li>Night temp: <b>%d</b></li>',
-        $item->getDate()->format('Y-m-d'),
-        $item->getDayTemp(),
-        $item->getNightTemp()
-    );
+switch ($request->getRequestUri()) {
+    case '/week':
+        $renderInfo = $controller->getWeekWeather();
+        break;
+    case '/':
+    default:
+        $renderInfo = $controller->getTodayWeather();
+    break;
 }
+$renderInfo['context']['resources_dir'] = 'src/Weather/Resources';
+
+$content = $twig->render($renderInfo['template'], $renderInfo['context']);
+
+$response = new Response(
+    $content,
+    Response::HTTP_OK,
+    array('content-type' => 'text/html')
+);
+//$response->prepare($request);
+$response->send();

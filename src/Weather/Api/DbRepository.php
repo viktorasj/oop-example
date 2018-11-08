@@ -5,21 +5,13 @@ namespace Weather\Api;
 use Weather\Model\NullWeather;
 use Weather\Model\Weather;
 
-class DbRepository
+class DbRepository implements DataProvider
 {
-    /**
-     * @return Weather
-     */
-    public function getToday()
-    {
-        return $this->selectByDate(new \DateTime());
-    }
-
     /**
      * @param \DateTime $date
      * @return Weather
      */
-    private function selectByDate(\DateTime $date)
+    public function selectByDate(\DateTime $date): Weather
     {
         $items = $this->selectAll();
         $result = new NullWeather();
@@ -33,10 +25,24 @@ class DbRepository
         return $result;
     }
 
+    public function selectByRange(\DateTime $from, \DateTime $to): array
+    {
+        $items = $this->selectAll();
+        $result = [];
+
+        foreach ($items as $item) {
+            if ($item->getDate() >= $from && $item->getDate() <= $to) {
+                $result[] = $item;
+            }
+        }
+
+        return $result;
+    }
+
     /**
      * @return Weather[]
      */
-    private function selectAll()
+    private function selectAll(): array
     {
         $result = [];
         $data = json_decode(
