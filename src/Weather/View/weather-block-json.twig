@@ -1,0 +1,15 @@
+<div class="widget style1 navy-bg">
+    <div class="row">
+        <div class="col-xs-4">
+             <i class="fa fa-{{ item.getSkySymbol }} fa-5x"></i>
+        </div>
+        <div class="col-xs-4 text-center">
+             <p>{{ item.getDate|date("Y-m-d") }}</p>
+             <p>Day of week: {{ item.getDay }}</p>
+        </div>
+        <div class="col-xs-4 text-right">
+            <p class="font-bold">High: <span class="h2">{{ item.getHigh }}'C</span></p>
+            <p class="font-bold">Low: <span class="h2">{{ item.getLow }}'C</span></p>
+        </div>
+    </div>
+</div>

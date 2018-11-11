@@ -7,27 +7,45 @@ use Weather\Model\NullWeather;
 
 class StartPage
 {
-    public function getTodayWeather(): array
+    public function getTodayWeather($source): array
     {
         try {
             $service = new Manager;
-            $weather = $service->getTodayInfo();
+            $weather = $service->getTodayInfo($source);
         } catch (\Exception $exp) {
             $weather = new NullWeather();
         }
 
-        return ['template' => 'today-weather.twig', 'context' => ['weather' => $weather]];
-    }
+        switch($source) {
+            case 'json-weather':
+                return ['template' => 'today-weather-json.twig', 'context' => ['weather' => $weather]];
+                break;
+            default:
+                return ['template' => 'today-weather.twig', 'context' => ['weather' => $weather]];
+                break;
 
-    public function getWeekWeather(): array
-    {
-        try {
-            $service = new Manager;
-            $weathers = $service->getWeekInfo();
-        } catch (\Exception $exp) {
-            $weathers = [];
         }
 
-        return ['template' => 'range-weather.twig', 'context' => ['weathers' => $weathers]];
+    }
+
+    public function getWeekWeather($source): array
+    {
+            try {
+                $service = new Manager;
+                $weathers = $service->getWeekInfo($source);
+            }
+            catch (\Exception $exp) {
+            $weathers = [];
+            }
+            switch($source) {
+                case 'json-weather':
+                    return ['template' => 'range-weather-json.twig', 'context' => ['weathers' => $weathers]];
+                    break;
+                default:
+                    return ['template' => 'range-weather.twig', 'context' => ['weathers' => $weathers]];
+                    break;
+
+        }
+
     }
 }

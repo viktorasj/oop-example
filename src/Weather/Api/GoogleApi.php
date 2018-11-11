@@ -11,12 +11,27 @@ class GoogleApi
      * @return Weather
      * @throws \Exception
      */
-    public function getToday()
-    {
-        $today = $this->load(new NullWeather());
-        $today->setDate(new \DateTime());
+//    public function getToday()
+//    {
+//        $today = $this->load(new NullWeather());
+//        $today->setDate(new \DateTime());
+//        return $today;
+//    }
 
-        return $today;
+    /**
+     * @return array
+     * @throws \Exception
+     */
+    public function getWeatherData()
+    {
+        $result = [];
+        for ($i = 0; $i <= 6; $i++) {
+            $today = $this->load(new NullWeather());
+            $nowDate = new \DateTime();
+            $today->setDate($nowDate->modify('+'.$i.' day'));
+            $result[] = $today;
+            }
+        return $result;
     }
 
     /**
@@ -37,4 +52,6 @@ class GoogleApi
 
         return $now;
     }
+
+
 }

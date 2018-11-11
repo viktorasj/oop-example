@@ -13,20 +13,20 @@ class Manager
      */
     private $transporter;
 
-    public function getTodayInfo(): Weather
+    public function getTodayInfo($src): Weather
     {
-        return $this->getTransporter()->selectByDate(new \DateTime());
+        return $this->getTransporter($src)->selectByDate(new \DateTime());
     }
 
-    public function getWeekInfo(): array
+    public function getWeekInfo($src): array
     {
-        return $this->getTransporter()->selectByRange(new \DateTime(), new \DateTime('+7 days'));
+        return $this->getTransporter($src)->selectByRange(new \DateTime(), new \DateTime('+7 days'));
     }
 
-    private function getTransporter()
+    private function getTransporter($src)
     {
         if (null === $this->transporter) {
-            $this->transporter = new DbRepository();
+            $this->transporter = new DbRepository($src);
         }
 
         return $this->transporter;

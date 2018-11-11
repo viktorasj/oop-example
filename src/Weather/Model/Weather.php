@@ -7,7 +7,12 @@ class Weather
     private $map = [
         1 => 'cloud',
         2 => 'cloud-rain',
-        3 => 'sun'
+        3 => 'sun',
+        "Mostly Cloudy" => 'cloud',
+        "Cloudy" => 'cloud',
+        "Partly Cloudy" => 'cloud',
+        "Breezy" => 'sun',
+        "Scattered Showers" => 'cloud-rain'
     ];
 
     /**
@@ -33,6 +38,11 @@ class Weather
     /**
      * @return int
      */
+    protected $day;
+    protected $high;
+    protected $low;
+    protected $dbSource;
+
     public function getDayTemp(): int
     {
         return $this->dayTemp;
@@ -65,15 +75,13 @@ class Weather
     /**
      * @return int
      */
-    public function getSky(): int
+    public function getSky()
     {
         return $this->sky;
     }
 
-    /**
-     * @param int $sky
-     */
-    public function setSky(int $sky): void
+
+    public function setSky($sky): void
     {
         $this->sky = $sky;
     }
@@ -97,5 +105,41 @@ class Weather
     public function getSkySymbol()
     {
         return $this->map[$this->sky];
+    }
+
+    public function setDay(string $day): void
+    {
+        $this->day = $day;
+    }
+
+    public function getDay()
+    {
+        return $this->day;
+    }
+
+    public function setLow(int $low): void
+    {
+        $this->low = $low;
+    }
+
+    public function getLow()
+    {
+        return $this->low;
+    }
+
+    public function setHigh(int $high): void
+    {
+        $this->high = $high;
+    }
+
+    public function getHigh()
+//        šitas labai geras metodas
+    {
+        return $this->high;
+    }
+
+    public function setDbSource(string $db): void
+    {
+        $this->dbSource = $db;
     }
 }
